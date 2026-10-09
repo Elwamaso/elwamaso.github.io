@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+  font-family: Arial, sans-serif;
+}
+.star {
+      position: fixed;
+      top: -10px;
+      color: yellow;
+      font-size: 10px;
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 9999;
+      text-shadow: 0 0 10px white, 0 0 20px yellow;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+.content {
+  text-align: center;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#extraButtons button {
+  margin: 0 5px;
+}
+
+.gim {
+  margin-top: 20px;
+  max-width: 300px;
+  border-radius: 8px;
+}

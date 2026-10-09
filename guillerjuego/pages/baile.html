@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>?</title>
+    <link rel="stylesheet" href="alt4.css">
+</head>
+<body>
+    <button id="iniciar"></button>
+    <img class="saltador" src="src/bodrio.jpg" alt="Saltador">
+    <audio id="musica" src="snds/danse.mp3"></audio>
+    <audio id="numbers" src="snds/numbers.mp3"></audio>
+<script>
+const boton = document.getElementById("iniciar");
+const saltador = document.querySelector(".saltador");
+const musica = document.getElementById("musica");
+const numbers = document.getElementById("numbers");
+const body = document.body;
+
+boton.addEventListener("click", () => {
+    document.title="Guillerbaile";
+    boton.style.display = "none";
+    saltador.style.display = "block";
+    musica.volume = 0.7;
+    musica.loop = true;
+    musica.play();
+    setTimeout(() => {
+        document.title="Asu como lo mueve";
+        const colores = ["#ff0055", "#00ffff", "#00ff55", "#ffcc00", "#aa00ff"];
+        for (let i = 0; i < 5; i++) {
+            const luz = document.createElement("div");
+            luz.classList.add("luz");
+            luz.style.background = colores[i];
+            luz.style.left = `${10 + i * 18}%`;
+            luz.style.animationDelay = `${i * 0.8}s`;
+            document.body.appendChild(luz);
+            const reflejo = document.createElement("div");
+            reflejo.classList.add("reflejo");
+            reflejo.style.background = colores[i];
+            reflejo.style.left = `${10 + i * 18}%`;
+            reflejo.style.animationDelay = `${i * 0.8}s`;
+            document.body.appendChild(reflejo);
+        }
+    }, 13000);
+    setTimeout(() => {
+        musica.pause();
+        musica.currentTime = 0;
+        saltador.style = "none";
+        document.querySelectorAll(".luz, .reflejo").forEach(e => e.remove());
+        body.style.background = "black";
+        const enlace = document.createElement("a");
+        enlace.href = "door.html";
+        enlace.target = "_self";
+        enlace.style.textDecoration = "none";
+        const finalImg = document.createElement("img");
+        finalImg.src = "src/yay.jpg";
+        finalImg.classList.add("final");
+        enlace.appendChild(finalImg);
+        body.appendChild(enlace);
+        setTimeout(() => {
+            document.title = "!";
+            finalImg.style.opacity = 1;
+            setTimeout(() => {
+                numbers.play();
+                document.title = "Eggg";
+                finalImg.style.display = "none";
+                document.body.style.backgroundImage = 'url("src/s1.png")';
+                document.body.style.backgroundRepeat = 'repeat';
+                document.body.style.backgroundSize = 'auto';
+                document.body.style.margin = '0';
+                document.body.style.height = '100vh';
+                document.body.style.display = 'flex';
+                document.body.style.justifyContent = 'center';
+                document.body.style.alignItems = 'center';
+                document.body.style.color = 'white';
+                document.body.style.backgroundColor = 'white';
+                document.body.style.fontFamily = 'Arial, sans-serif';
+                const textoFinal = document.createElement("h1");
+                textoFinal.textContent = "la pRimera parte reSalta oculTada";
+                textoFinal.style.fontSize = "3em";
+                textoFinal.style.color = "red";
+                textoFinal.style.textShadow = "0 0 20px white, 0 0 40px red";
+                textoFinal.style.textAlign = "center";
+                textoFinal.style.margin = "0";
+                body.appendChild(textoFinal);
+            }, 5000);
+        }, 500);
+    }, 30000);
+});
+</script>
+</body>
+<!--
+Disco elysium
+-->
+</html>

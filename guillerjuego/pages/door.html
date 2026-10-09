@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calle</title>
+  <link rel="stylesheet" href="alt5.css">
+</head>
+<body>
+  <input type="text" id="code1" maxlength="8">
+  <input type="text" id="code2" maxlength="8">
+  <input type="text" id="code3" maxlength="8">
+  <button id="checkBtn">Confirmar</button>
+  <audio id="greet" src="snds/thankyousomuchfortoplayingmygame.mp3"></audio>
+<script>
+const encodedCodes = ["UlJKRUhSU1Q=", "RjJHaVg4Um0=", "SzFuNERzOW8="];
+function decodeBase64(str) {
+  return atob(str);
+}
+const correctCodes = encodedCodes.map(c => decodeBase64(c));
+const btn = document.getElementById("checkBtn");
+const greet = document.getElementById("greet");
+const desbloquearAudio = () => {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const ctx = new AudioContext();
+  const src = ctx.createBufferSource();
+  src.connect(ctx.destination);
+  if (ctx.state === "suspended") ctx.resume();
+  src.start(0);
+};
+btn.addEventListener("click", async () => {
+  const c1 = document.getElementById("code1").value.trim();
+  const c2 = document.getElementById("code2").value.trim();
+  const c3 = document.getElementById("code3").value.trim();
+  if (c1 === correctCodes[0] && c2 === correctCodes[1] && c3 === correctCodes[2]) {
+    desbloquearAudio();
+    try {
+      document.title = "Hogar";
+      greet.loop = true;
+      greet.volume = 0.7;
+      await greet.play();
+    } catch (e) {
+      const aviso = document.createElement("div");
+      aviso.textContent = "No deberías ver esto, pero si lo haces clickea cualquier parte de la pantalla";
+      aviso.style.position = "fixed";
+      aviso.style.top = "50%";
+      aviso.style.left = "50%";
+      aviso.style.transform = "translate(-50%, -50%)";
+      aviso.style.background = "#000";
+      aviso.style.color = "#fff";
+      aviso.style.padding = "20px";
+      aviso.style.borderRadius = "10px";
+      document.body.appendChild(aviso);
+      document.body.addEventListener("click", () => {
+        greet.play();
+        aviso.remove();
+      }, { once: true });
+    }
+    document.querySelectorAll("input, button").forEach(e => e.remove());
+    document.body.style.backgroundColor = "white";
+    document.body.style.color = "black";
+    const titulo = document.createElement("h1");
+    titulo.textContent = "Galería";
+    document.body.appendChild(titulo);
+    const desc = document.createElement("p");
+    desc.textContent = "¿Recuerdas el final de lomando?";
+    document.body.appendChild(desc);
+    const galeria = document.createElement("div");
+    galeria.classList.add("galeria");
+    const elementos = [
+    { img: "src/bodrio.jpg", texto: "La imagen que inició toda esta porquería." },
+    { img: "src/vodrio.jpg", texto: "El origen de la imagen que inició toda esta porquería." },
+    { img: "src/clickeame!.jpg", texto: "Genuinamente creo que es de mis mejores chistes." },
+    { img: "src/gore.jpg", texto: "Gore de mi personaje de confort." },
+    { img: "src/memorial.png", texto: "Esto es lo que más me tomó editar de todo lo que está aquí." },
+    { img: "src/Enzo.png", texto: "Se metió solo a la galería y no sé cómo botarlo." },
+    { img: "src/yay.jpg", texto: "Genuinamente pienso que Guillermo sí sale bien en esta foto." },
+    { img: "src/s1.png", texto: "Sentía una necesidad de hacer algo aparte de una imagen." },
+    { img: "src/s2.jpg", texto: "Sentía una necesidad de hacer algo fuera de lo común." },
+    { img: "src/s3.png", texto: "Sentía una necesidad de hacer algo bueno." },
+    { img: "src/base.png", texto: "Transformaciones de Guillermo del 1 al 10." },
+    { img: "src/ssj1.png", texto: "Guillermo comenzó a sentir furia y sus ojos comenzaron a brillar un tono rojo carmesí." },
+    { img: "src/ssj2.png", texto: "Has llegado a un punto de no retorno, Guillermo ha canalizado su furia fuertemente y ha generado colmillos." },
+    { img: "src/ssj3(dios oscuro).png", texto: "Guillermo ha superado su límite humano y se ha convertido en… algo más allá de nuestra comprensión, pero parece que no durará mucho así." },
+    { img: "src/ssj3(reencarnado).png", texto: "Su cuerpo ha sido reencarnado en algo similar a un dios, si en este punto sigues vivo solo te queda rezar… pero rezar solo lo hará más fuerte." },
+    { img: "src/ssj4(supremo).png", texto: "Una ira eterna se ha apoderado de un dios y este es el resultado de tal impuridad." },
+    { img: "src/ssjdiablo.png", texto: "La culminación de la evolución Guillermina." },
+    { img: "src/god.png", texto: "yay!" }
+  ];
+  elementos.forEach((e, i) => {
+    if (i === 10) {
+      const seccion = document.createElement("div");
+      seccion.classList.add("desc-section");
+      seccion.innerHTML = `
+      <h2>Lost media</h2>
+      <p>Como todo proyecto, esta cosa tiene contenido existente que no es usado en ninguna parte.</p>`;
+      galeria.appendChild(seccion);
+    }
+    if (i === 17) {
+      const seccion = document.createElement("div");
+      seccion.classList.add("desc-section");
+      seccion.innerHTML = `
+      <h2>Reflexión</h2>
+      <p>En el transcurso de 3 días (técnicamente solo 1 porque fueron 20 horas por ahí) hice este “minijuego”, inspirado en el comentario de Guillermo sobre como “esperaba que el puto botón que cree hiciese algo”. Así que como respuesta a ello hice toda esta cosa fuertemente inspirada en lomando, eso sí, de todos los proyectos que he hecho en HTML este es el único que he sacado “al público”, ah y la canción la puse porque es lo que estaba escuchando mientras terminaba esto. Como último mensaje les dejo con esta foto de Drako que no tiene absolutamente nada raro en él.</p>`;
+      galeria.appendChild(seccion);
+    }
+    const item = document.createElement("div");
+    item.classList.add("item");
+    const imagen = document.createElement("img");
+    imagen.src = e.img;
+    const texto = document.createElement("p");
+    texto.textContent = e.texto;
+    item.appendChild(imagen);
+    item.appendChild(texto);
+    galeria.appendChild(item);
+    if (i === elementos.length - 1) {
+      imagen.style.cursor = "pointer";
+      imagen.addEventListener("click", iniciarGuillerbaile);
+    }
+  });
+  document.body.appendChild(galeria);
+} else {
+  window.location.href = "../main.html";
+}
+});
+function iniciarGuillerbaile() {
+  document.body.innerHTML = "";
+  document.body.style.background = "radial-gradient(circle at center, #202020, #000)";
+  document.body.style.display = "flex";
+  document.body.style.justifyContent = "center";
+  document.body.style.alignItems = "center";
+  document.body.style.height = "100vh";
+  document.body.style.overflow = "hidden";
+  document.title = "oh si";
+  const boton = document.createElement("button");
+  boton.id = "iniciar";
+  boton.textContent = "Iniciar";
+  const saltador = document.createElement("img");
+  saltador.classList.add("saltador");
+  saltador.src = "src/vodrio.jpg";
+  saltador.style.display = "none";
+  const saltadorIzq = document.createElement("img");
+  saltadorIzq.classList.add("saltador", "izquierda");
+  saltadorIzq.src = "src/god.png";
+  saltadorIzq.style.display = "none";
+  const saltadorDer = document.createElement("img");
+  saltadorDer.classList.add("saltador", "derecha");
+  saltadorDer.src = "src/Enzo.png";
+  saltadorDer.style.display = "none";
+  const musica = new Audio("snds/danse.mp3");
+  document.body.appendChild(boton);
+  document.body.appendChild(saltadorIzq);
+  document.body.appendChild(saltadorDer);
+  document.body.appendChild(saltador);
+  boton.addEventListener("click", () => {
+    document.title = "Guillerbaile?";
+    boton.style.display = "none";
+    saltador.style.display = "block";
+    musica.volume = 0.7;
+    musica.loop = true;
+    musica.play();
+    setTimeout(() => {
+      document.title = "Aun sabe como moverlo";
+      const colores = ["#ff0055", "#00ffff", "#00ff55", "#ffcc00", "#aa00ff"];
+      for (let i = 0; i < 5; i++) {
+        const luz = document.createElement("div");
+        luz.classList.add("luz");
+        luz.style.background = colores[i];
+        luz.style.left = `${10 + i * 18}%`;
+        luz.style.animationDelay = `${i * 0.8}s`;
+        document.body.appendChild(luz);
+        const reflejo = document.createElement("div");
+        reflejo.classList.add("reflejo");
+        reflejo.style.background = colores[i];
+        reflejo.style.left = `${10 + i * 18}%`;
+        reflejo.style.animationDelay = `${i * 0.8}s`;
+        document.body.appendChild(reflejo);
+      }
+    }, 12000);
+    setTimeout(() => {
+      document.title = "Oh a quien engaño";
+      saltadorIzq.style.display = "block";
+      saltadorIzq.classList.add("entrando");
+    }, 29000);
+    setTimeout(() => {
+      document.title = "SI MANO?";
+      saltadorDer.style.display = "block";
+      saltadorDer.classList.add("entrando-derecha");
+    }, 50500);
+    setTimeout(() => {
+      document.title = "Drakenzollerbaile";
+    }, 58000);
+    setTimeout(() => {
+      document.title = "Ah y esto ya acabo";
+    }, 70000);
+    setTimeout(() => {
+      document.title = "Drakenzollerbaile";
+    }, 80000);
+  });
+}
+</script>
+</body>
+<!--
+Lugar de estar
+-->
+</html>
